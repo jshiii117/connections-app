@@ -23,7 +23,18 @@ import { grey } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
-    primary: grey
+    primary: {
+      main: '#343434',
+      text: '#FFFFFF'
+    },
+    secondary: {
+      main: '#242424',
+      text: '#FFFFFF'
+    },
+    background: {
+      main: '#534b4b',
+      text: '#FFFFFF'
+    }
   }
 });
 
@@ -43,7 +54,7 @@ function Copyright() {
 function FloatingNewButton() {
   return (
     <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 30, right: 45, }}>
-      <Fab variant="extended" color="primary" aria-label="add">
+      <Fab variant="extended" color="#FFFFFF" aria-label="add">
         <NavigationIcon sx={{ mr: 1 }} />
         NEW
       </Fab>
@@ -70,20 +81,19 @@ export default function Album() {
       <Drawer
         variant="permanent"
         sx={{
+          bgcolor: 'background.main',
+          color: 'background.main',
           width: drawerWidth,
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ height: window.innerHeight,  bgcolor: 'primary.main', color: 'primary.text', overflow: 'auto' }}>
           <List>
             {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
               <ListItem key={text} disablePadding>
                 <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>
@@ -92,7 +102,7 @@ export default function Album() {
           <Divider />
           <List>
             {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem key={text} disablePadding>
+              <ListItem bgcolor='#53b4b4' color='#53b4b4' key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -104,11 +114,13 @@ export default function Album() {
           </List>
         </Box>
       </Drawer>
-      <main>
+      <main sx={{bgcolor: 'background.main', color: 'primary.main' /*Colors dont go here */}}>
         {/* Hero unit */}
+        <Container sx={{bgcolor: 'background.main'}} />
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: 'background.main',
+            color: 'background.main',
             pt: 8,
             pb: 6,
           }}
@@ -118,12 +130,12 @@ export default function Album() {
               component="h1"
               variant="h2"
               align="center"
-              color="text.primary"
+              color="primary.main"
               gutterBottom
             >
               Album layout
             </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
+            <Typography variant="h5" align="center" color="primary.main" paragraph>
               Something short and leading about the collection below—its contents,
               the creator, etc. Make it short and sweet, but not too short so folks
               don&apos;t simply skip over it entirely.
@@ -139,13 +151,13 @@ export default function Album() {
             </Stack>
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth="md">
+        <Container sx={{ py: 8, bgcolor: 'background.main'}} maxWidth='md'>
           {/* End hero unit */}
-          <Grid container spacing={4}>
+          <Grid bgcolor='primary.main' color='primary.text' container spacing={4}>
             {cards.map((card) => (
               <Grid item key={card} xs={12} sm={6} md={4}>
                 <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+                  sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'secondary.main' }}
                 >
                   <CardMedia
                     component="img"
@@ -156,11 +168,11 @@ export default function Album() {
                     image="https://source.unsplash.com/random"
                     alt="random"
                   />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
+                  <CardContent sx={{ flexGrow: 1}}>
+                    <Typography gutterBottom variant="h5" component="h2" color="primary.text">
                       Heading
                     </Typography>
-                    <Typography>
+                    <Typography sx={{color: 'primary.text'}}>
                       This is a media card. You can use this section to describe the
                       content.
                     </Typography>
@@ -173,11 +185,11 @@ export default function Album() {
               </Grid>
             ))}
           </Grid>
-        </Container>
         <FloatingNewButton/>
+        </Container>
       </main>
       {/* Footer */}
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+      <Box sx={{ bgcolor: 'background.main', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
           Footer
         </Typography>
