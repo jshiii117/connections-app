@@ -1,20 +1,7 @@
-import { Card, CardActions, CardContent, CardMedia, Typography, Button, Alert, Snackbar } from '@mui/material';
+import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@mui/material';
+// import Popup from './popup';
 
-const hasContactInfo = true
-
-function buttonFeedback() {
-    return (
-        hasContactInfo?
-        <Alert variant="outlined" severity="success">
-            This is a success alert — check it out!
-        </Alert>
-        :
-        <Alert variant="outlined" severity="error">
-            This is an error alert — check it out!
-        </Alert>
-    )
-}
-
+// const hasContactInfo = true
 
 export default function ConnectionCard() {
     return (
@@ -40,16 +27,8 @@ export default function ConnectionCard() {
             </Typography>
             </CardContent>
             <CardActions >
-            {/* <Button size="small" variant="text">
-            <Typography color="primary.text">
-               EDIT
-            </Typography>
-            </Button> */}
-            <Button size="small" variant="outlined"   onClick={() => {
-                buttonFeedback();
-                }}
-                >
-                    
+            <Button size="small" variant="outlined"   onClick={() => {}}>
+            {/* <Popup/> */}
             <Typography color="primary.text">
                REACH OUT
             </Typography>
