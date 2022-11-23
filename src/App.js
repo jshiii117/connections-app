@@ -19,7 +19,11 @@ import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItem
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import NavigationIcon from '@mui/icons-material/Navigation'
-import { grey } from '@mui/material/colors';
+import { maxWidth } from '@mui/system';
+
+const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const drawerWidth = 240;
 
 const theme = createTheme({
   palette: {
@@ -53,18 +57,14 @@ function Copyright() {
 
 function FloatingNewButton() {
   return (
-    <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 30, right: 45, }}>
-      <Fab variant="extended" color="#FFFFFF" aria-label="add">
+    <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 30, right: 45}}>
+      <Fab variant="extended" color="secondary" aria-label="add">
         <NavigationIcon sx={{ mr: 1 }} />
         NEW
       </Fab>
     </Box>
   )
 }
-
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-const drawerWidth = 240;
 
 export default function Album() {
   return (
@@ -78,18 +78,9 @@ export default function Album() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        variant="permanent"
-        sx={{
-          bgcolor: 'background.main',
-          color: 'background.main',
-          width: drawerWidth,
-          flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-        }}
-      >
+      <Drawer variant="permanent" sx={{bgcolor: 'background.main', color: 'background.main', width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }}}>
         <Toolbar />
-        <Box sx={{ height: window.innerHeight,  bgcolor: 'primary.main', color: 'primary.text', overflow: 'auto' }}>
+        <Box sx={{ height: window.innerHeight,  bgcolor: 'primary.main', color: 'primary.text', overflow: 'auto' /* Side Drawer Settings */}}> 
           <List>
             {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
               <ListItem key={text} disablePadding>
@@ -114,48 +105,11 @@ export default function Album() {
           </List>
         </Box>
       </Drawer>
-      <main sx={{bgcolor: 'background.main', color: 'primary.main' /*Colors dont go here */}}>
-        {/* Hero unit */}
-        <Container sx={{bgcolor: 'background.main'}} />
-        <Box
-          sx={{
-            bgcolor: 'background.main',
-            color: 'background.main',
-            pt: 8,
-            pb: 6,
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h1"
-              variant="h2"
-              align="center"
-              color="primary.main"
-              gutterBottom
-            >
-              Album layout
-            </Typography>
-            <Typography variant="h5" align="center" color="primary.main" paragraph>
-              Something short and leading about the collection below—its contents,
-              the creator, etc. Make it short and sweet, but not too short so folks
-              don&apos;t simply skip over it entirely.
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <Button variant="contained">Main call to action</Button>
-              <Button variant="outlined">Secondary action</Button>
-            </Stack>
-          </Container>
-        </Box>
-        <Container sx={{ py: 8, bgcolor: 'background.main'}} maxWidth='md'>
-          {/* End hero unit */}
-          <Grid bgcolor='primary.main' color='primary.text' container spacing={4}>
+      <main>
+        <Box sx={{bgcolor: 'background.main', width: 1, pl: 30}}/* Margin left*/ > 
+          <Grid bgcolor='background.main' color='primary.text' container spacing={4} sm='auto' md='auto' xl={12}>
             {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card} xs={2} sm={2} md={2} xl={2}>
                 <Card
                   sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'secondary.main' }}
                 >
@@ -186,7 +140,7 @@ export default function Album() {
             ))}
           </Grid>
         <FloatingNewButton/>
-        </Container>
+        </Box>
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.main', p: 6 }} component="footer">
