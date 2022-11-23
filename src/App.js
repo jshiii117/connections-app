@@ -1,25 +1,19 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
 import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItemIcon, Fab } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import NavigationIcon from '@mui/icons-material/Navigation'
-import { maxWidth } from '@mui/system';
+import ConnectionCard from './components/connectionCard';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -106,36 +100,11 @@ export default function Album() {
         </Box>
       </Drawer>
       <main>
-        <Box sx={{bgcolor: 'background.main', width: 1, pl: 30}}/* Margin left*/ > 
+        <Box sx={{bgcolor: 'background.main', width: 1, pl: 30, my: 10}}/* Margin left*/ > 
           <Grid bgcolor='background.main' color='primary.text' container spacing={4} sm='auto' md='auto' xl={12}>
             {cards.map((card) => (
               <Grid item key={card} xs={2} sm={2} md={2} xl={2}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'secondary.main' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1}}>
-                    <Typography gutterBottom variant="h5" component="h2" color="primary.text">
-                      Heading
-                    </Typography>
-                    <Typography sx={{color: 'primary.text'}}>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
+                <ConnectionCard/>
               </Grid>
             ))}
           </Grid>
