@@ -30,6 +30,7 @@ const theme = createTheme({
       text: '#FFFFFF'
     },
     background: {
+      default: '#534b4b',
       main: '#534b4b',
       text: '#FFFFFF'
     }
@@ -60,7 +61,7 @@ function FloatingNewButton() {
   )
 }
 
-export default function Album() {
+export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -100,10 +101,10 @@ export default function Album() {
         </Box>
       </Drawer>
       <main>
-        <Box sx={{bgcolor: 'background.main', width: 1, pl: 30, my: 10}}/* Margin left*/ > 
-          <Grid bgcolor='background.main' color='primary.text' container spacing={4} sm='auto' md='auto' xl={12}>
+        <Box sx={{bgcolor: 'background.main', width: 1, pl: 35, my: 10}}/* Margin left*/ > 
+          <Grid bgcolor='background.main' color='primary.text' container spacing={4} xl={12}>
             {cards.map((card) => (
-              <Grid item key={card} xs={2} sm={2} md={2} xl={2}>
+              <Grid item key={card} xs={12} sm={6} md={3} l={2} xl={2}>
                 <ConnectionCard/>
               </Grid>
             ))}
