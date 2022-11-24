@@ -1,6 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
 
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -14,6 +12,7 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import NavigationIcon from '@mui/icons-material/Navigation'
 import ConnectionCard from './components/connectionCard';
+import WorkspaceAppBar from './components/workspaceAppBar';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -65,14 +64,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-        <Toolbar>
-          <CameraIcon sx={{ mr: 2 }} />
-          <Typography variant="h6" color="inherit" noWrap>
-            Album layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <WorkspaceAppBar />
       <Drawer variant="permanent" sx={{bgcolor: 'background.main', color: 'background.main', width: drawerWidth, flexShrink: 0, [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' }}}>
         <Toolbar />
         <Box sx={{ height: window.innerHeight,  bgcolor: 'primary.main', color: 'primary.text', overflow: 'auto' /* Side Drawer Settings */}}> 
