@@ -7,12 +7,12 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItemIcon, Fab } from '@mui/material';
+import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItemIcon } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import NavigationIcon from '@mui/icons-material/Navigation'
 import ConnectionCard from './components/connectionCard';
 import WorkspaceAppBar from './components/workspaceAppBar';
+import FloatingNewButton from './components/floatingNewButton';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
@@ -47,17 +47,6 @@ function Copyright() {
       {'.'}
     </Typography>
   );
-}
-
-function FloatingNewButton() {
-  return (
-    <Box sx={{ '& > :not(style)': { m: 1 }, position: 'fixed', bottom: 30, right: 45}}>
-      <Fab variant="extended" color="secondary" aria-label="add">
-        <NavigationIcon sx={{ mr: 1 }} />
-        NEW
-      </Fab>
-    </Box>
-  )
 }
 
 export default function App() {
