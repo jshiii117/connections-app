@@ -1,11 +1,15 @@
 import PropTypes from 'prop-types';
-import { Box, Fab, Typography, Dialog, DialogTitle, List, ListItem, ListItemAvatar, Avatar, ListItemText } from '@mui/material';
+import { Box, Fab, Typography, Dialog, DialogTitle, List, ListItem, ListItemAvatar, Avatar, ListItemText, Slide} from '@mui/material';
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add'
 import * as React from 'react';
 
 const emails = ['hello@gmail.com', 'nima@gmail.com', 'jame@gmail.com']
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="left" ref={ref} {...props} />;
+});
 
 function SimpleDialog(props) {
     const { onClose, selectedValue, open } = props;
@@ -19,7 +23,7 @@ function SimpleDialog(props) {
     };
   
     return (
-      <Dialog onClose={handleClose} open={open}>
+      <Dialog onClose={handleClose} open={open} TransitionComponent={Transition} PaperProps={{ sx: { position: "fixed", bottom: 30, right: 45, m: 0, width: 400, height: 600} }}>
         <DialogTitle>Set backup account</DialogTitle>
         <List sx={{ pt: 0 }}>
           {emails.map((email) => (
