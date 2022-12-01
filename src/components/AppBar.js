@@ -19,7 +19,7 @@ export default function WorkspaceAppBar() {
           <Typography variant="h10" color="inherit" noWrap>
             User Name
           </Typography>
-          <IconButton size="large"aria-label="account of current user" /* aria-controls={menuId} */ aria-haspopup="true" onClick={console.log('pressed')} color="inherit">
+          <IconButton size="large"aria-label="account of current user" /* aria-controls={menuId} */ aria-haspopup="true" onClick={ () => console.log('pressed')} color="inherit">
             <Badge badgeContent={4} color="error">
               <AccountCircle />
               </Badge>

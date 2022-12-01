@@ -10,9 +10,9 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItemIcon } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import ConnectionCard from './components/connectionCard';
-import WorkspaceAppBar from './components/workspaceAppBar';
-import FloatingNewButton from './components/floatingNewButton';
+import ConnectionCard from './components/ConnectionCard';
+import WorkspaceAppBar from './components/AppBar';
+import FloatingNewButton from './components/addNewComponents/NewFormButton';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
