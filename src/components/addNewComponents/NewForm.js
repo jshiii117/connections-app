@@ -40,17 +40,30 @@ export default function AddConnectionForm(props) {
         //     selectedFile: [reader.result]
         //   });
             setSelectedFile(reader.result)
-        }.bind(this);
-        console.log(url); // Would see a path?
+            setFormValues({
+                ...formValues, profilePicture: reader.result
+            })
+            console.log(url)
+
+            setFormValues({
+                ...formValues,
+                profilePicture: reader.result
+            })
+            console.log(formValues)
+        }
     
-        // this.setState({
-        //   mainState: "uploaded",
-        //   selectedFile: event.target.files[0],
-        //   imageUploaded: 1
-        // });
-        setSelectedFile(event.target.files[0])
-        console.log("ran handleUploadClick")
-        console.log(event.target.files[0])
+        // // this.setState({
+        // //   mainState: "uploaded",
+        // //   selectedFile: event.target.files[0],
+        // //   imageUploaded: 1
+        // // });
+        // setSelectedFile(event.target.files[0])
+        // console.log("ran handleUploadClick")
+        // console.log(event.target.files[0])
+        // setFormValues({
+        //     ...formValues,
+        //     profilePicture: url
+            // })
       };
   
       const handleClose = () => {
@@ -85,8 +98,8 @@ export default function AddConnectionForm(props) {
                 onMouseEnter={() => {setPictureHover(true)}}
                 onMouseLeave={() => {setPictureHover(false)}}>
                     {pictureHover &&
-                    <Box display="false" style={{backgroundColor: alpha("#343434", 0.5), position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', zIndex: 3}}>
-                        <AddPhotoAlternateIcon align="center" justify='center' maxWidth maxHeight sx={{
+                    <Box display="false" style={{backgroundColor: alpha("#343434", 0.3), position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, justifyContent: 'center', alignItems: 'center', zIndex: 3}}>
+                        <AddPhotoAlternateIcon align="center" justify='center' sx={{
                         color: 'white',
                         height: 80,
                         width: 80,
@@ -103,6 +116,7 @@ export default function AddConnectionForm(props) {
                     <Box
                         component="img"
                         sx={{
+                        textTransform: 'none',
                         position: 'relative',
                         bgColor: "secondary",
                         color: "black",
@@ -111,8 +125,8 @@ export default function AddConnectionForm(props) {
                         maxHeight: { xs: 100, md: 120 },
                         maxWidth: { xs: 100, md: 120 },
                         }}
-                        alt="The house from the offer."
-                        src="https://img.icons8.com/color/96/null/user.png"
+                        alt="Can't load image"
+                        src={formValues.profilePicture}
                     />
                     {/* <Typography variant="h10" color="inherit" noWrap sx={{textTransform: 'none'}}>
                         Upload a Helpful Picture
@@ -127,7 +141,7 @@ export default function AddConnectionForm(props) {
                 id="contained-button-file"
                 multiple
                 type="file"
-                onChange={handleInputChange} //Also handleUploadClick here
+                onChange={handleUploadClick} //Also handleUploadClick here
             />  
         </Grid>
           <Grid item>
