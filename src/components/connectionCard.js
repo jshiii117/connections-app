@@ -1,9 +1,12 @@
 import { Card, CardActions, CardContent, CardMedia, Typography, Button } from '@mui/material';
+import PropTypes from 'prop-types';
 // import Popup from './popup';
 
 // const hasContactInfo = true
 
-export default function ConnectionCard() {
+export default function ConnectionCard(props) {
+    const { connection } = props;
+    
     return (
         <Card
         sx={{ height: '100%', display: 'flex', flexDirection: 'column', bgcolor: 'secondary.main'}}
@@ -13,16 +16,16 @@ export default function ConnectionCard() {
             sx={{
                 height: 200
             }}
-            image="https://source.unsplash.com/random"
-            alt="random"
+            image={connection.profilePicture}
+            alt="profile picture"
             />
             <CardContent sx={{ flexGrow: 1}}>
             <Typography gutterBottom variant="h5" component="h2" color="primary.text">
-                Connection Name
+                {connection.fullName}
             </Typography>
             
             <Typography sx={{color: 'primary.text'}}>
-                Position Title
+                {connection.position}
             </Typography>
             </CardContent>
             <CardActions >
@@ -37,3 +40,6 @@ export default function ConnectionCard() {
     );
 }
 
+ConnectionCard.propTypes = {
+    connection: PropTypes.object.isRequired
+  };

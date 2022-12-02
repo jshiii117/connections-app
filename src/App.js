@@ -18,13 +18,26 @@ import ConnectionGroup from './components/ConnectionGroup';
 const connectionGroups = [
   {
     groupName: "Consulting",
-    groupItems: [1, 2, 3, 4, 5]
+    groupItems: [
+      {
+        profilePicture: 'https://source.unsplash.com/random',
+        fullName: "Bob Marley",
+        position: "Software Engineer",
+        lastContacted: 'Today',
+        contactMethod: 'LinkedIn',
+        description: 'This person is super cool.'
+      },
+      {
+        profilePicture: 'https://source.unsplash.com/random',
+        fullName: "Elon Musk",
+        position: "CEO",
+        lastContacted: 'Today',
+        contactMethod: 'LinkedIn',
+        description: 'This person is super cool.'
+      }
+      
+    ]
   },
-  {
-    groupName: 'Software Engineering',
-    groupItems: [1, 2, 3]
-  }
-
 ]
 
 const drawerWidth = 240;
@@ -96,16 +109,18 @@ export default function App() {
         <Box sx={{bgcolor: 'background.main', width: 1, pl: 35, my: 10}}/* Margin left*/ > 
         {connectionGroups.map((connectionGroup)=> (
           <>
-            <Typography>
+            <Typography variant="h4" sx={{fontWeight: "bold", color: "white"}}>
               {connectionGroup.groupName}
             </Typography>
+            <Box sx={{height: 15}}/>
             <Grid container spacing={4}>
             {connectionGroup.groupItems.map((connection) => (
               <Grid item key={connection} xs={12} sm={6} md={3} l={2} xl={2}>
-                <ConnectionCard/>
+                <ConnectionCard connection={connection}/>
               </Grid>
             ))}
             </Grid>
+            <Box sx={{height: 50}}/>
           </>
 
         ))}
