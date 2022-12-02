@@ -115,16 +115,14 @@ export default function App() {
             <Box sx={{height: 15}}/>
             <Grid container spacing={4}>
             {connectionGroup.groupItems.map((connection) => (
-              <Grid item key={connection} xs={12} sm={6} md={3} l={2} xl={2}>
+              <Grid item key={connection.fullName} xs={12} sm={6} md={3} l={2} xl={2}>
                 <ConnectionCard connection={connection}/>
               </Grid>
             ))}
             </Grid>
             <Box sx={{height: 50}}/>
           </>
-
         ))}
-
         <FloatingNewButton/>
         </Box>
       </main>
