@@ -13,8 +13,19 @@ import MailIcon from '@mui/icons-material/Mail';
 import ConnectionCard from './components/ConnectionCard';
 import WorkspaceAppBar from './components/AppBar';
 import FloatingNewButton from './components/addNewComponents/NewFormButton';
+import ConnectionGroup from './components/ConnectionGroup';
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const connectionGroups = [
+  {
+    groupName: "Consulting",
+    groupItems: [1, 2, 3, 4, 5]
+  },
+  {
+    groupName: 'Software Engineering',
+    groupItems: [1, 2, 3]
+  }
+
+]
 
 const drawerWidth = 240;
 
@@ -83,13 +94,22 @@ export default function App() {
       </Drawer>
       <main>
         <Box sx={{bgcolor: 'background.main', width: 1, pl: 35, my: 10}}/* Margin left*/ > 
-          <Grid bgcolor='background.main' color='primary.text' container spacing={4} xl={12}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={3} l={2} xl={2}>
+        {connectionGroups.map((connectionGroup)=> (
+          <>
+            <Typography>
+              {connectionGroup.groupName}
+            </Typography>
+            <Grid container spacing={4}>
+            {connectionGroup.groupItems.map((connection) => (
+              <Grid item key={connection} xs={12} sm={6} md={3} l={2} xl={2}>
                 <ConnectionCard/>
               </Grid>
             ))}
-          </Grid>
+            </Grid>
+          </>
+
+        ))}
+
         <FloatingNewButton/>
         </Box>
       </main>

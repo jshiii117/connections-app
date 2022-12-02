@@ -49,7 +49,7 @@ export default function AddConnectionForm(props) {
                 ...formValues,
                 profilePicture: reader.result
             })
-            console.log(formValues)
+            console.log(formValues) //Image will not have updated at this point
         }
     
         // // this.setState({
@@ -79,7 +79,6 @@ export default function AddConnectionForm(props) {
     
       return (
         <Dialog onClose={handleClose} open={open} TransitionComponent={Transition} PaperProps={{ sx: { position: "fixed", bottom: 30, right: 45, m: 0, width: 400, height: 0.8} }}>
-
             <DialogTitle sx={{mt: 3}}>
                 <center>
                 <div>                
