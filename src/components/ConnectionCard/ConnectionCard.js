@@ -13,18 +13,21 @@ function Item(props) {
     return (
       <Box
         display="grid"
-        sx={{
-          p: 1,
-          m: 1,
-          bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : 'grey.100'),
-          color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
-          border: '1px solid',
-          borderColor: (theme) =>
-            theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-          borderRadius: 2,
-          fontSize: '0.875rem',
-          fontWeight: '700',
-          ...sx,
+        sx={{    
+        //   bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : 'grey.100'),
+        //   color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
+        //   border: '3px solid',
+        //   borderColor: (theme) =>
+        //     theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        // p: 1,
+        m: 1,
+        color: 'white',
+        bgcolor: "secondary.main",
+        borderColor: 'grey.800',
+        borderRadius: 2,
+        fontSize: '0.875rem',
+        fontWeight: '700',
+        ...sx,
         }}
         {...other}
       />
@@ -56,9 +59,7 @@ function DetailedConnectionCardView(props) {
         }}
         >
         <div style={{ width: 600, height: 300 }}>
-        <Box
-            sx={{ display: 'flex', p: 1, bgcolor: 'background.paper', borderRadius: 1, height: 1}}
-        >
+        <Box sx={{ display: 'flex', p: 1, bgcolor: 'primary.main', borderRadius: 1, height: 1}}>
             <Item sx={{ width: 0.35 }}>
                  <Grid container direction="column" justifyContent="space-evenly" alignItems="center">
                     <AddPhotoAlternateIcon align="center" justify='center' sx={{
@@ -69,8 +70,8 @@ function DetailedConnectionCardView(props) {
                     maxWidth: { xs: 60, md: 80 },
                     }}>
                     </AddPhotoAlternateIcon>
-                    <Typography>
-                        CONNECTION NAME
+                    <Typography sx={{fontWeight: "bold"}}>
+                        Connection Name
                     </Typography>
                     <Typography>
                         Connection Position
@@ -81,10 +82,15 @@ function DetailedConnectionCardView(props) {
                  </Grid>
             </Item>
             <Item sx={{ width: 0.65  }}>
-            <Grid container direction="column" justifyContent="flex-start" alignItems="left">
-                    <Typography>
-                        Description:
-                    </Typography>
+            <Grid sx={{p: 2}}container direction="column" justifyContent="flex-start" alignItems="left">
+                    <Grid direction="row" justifyContent="space-evenly" backgroundColor="red">
+                        <Typography>
+                            Description:
+                        </Typography>
+                        <Typography>
+                            Icons go here
+                        </Typography>
+                    </Grid>
                     <Typography display="block">
                         {"Insert description here."}
                     </Typography>
