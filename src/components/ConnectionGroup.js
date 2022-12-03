@@ -1,5 +1,5 @@
 import { Typography, Grid, Box } from "@material-ui/core";
-import ConnectionCard from "./ConnectionCard";
+import ConnectionCard from "./ConnectionCard/ConnectionCard";
 
 const cards = [1, 2, 3, 4, 5, 6, 7];
 

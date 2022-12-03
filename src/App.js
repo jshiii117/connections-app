@@ -10,10 +10,10 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Drawer, List, ListItem, ListItemButton, ListItemText, Divider, ListItemIcon } from '@mui/material';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import ConnectionCard from './components/ConnectionCard';
 import WorkspaceAppBar from './components/AppBar';
 import FloatingNewButton from './components/addNewComponents/NewFormButton';
 import ConnectionGroup from './components/ConnectionGroup';
+import ConnectionCard from './components/ConnectionCard/ConnectionCard';
 
 const connectionGroups = [
   {
