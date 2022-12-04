@@ -1,8 +1,7 @@
 import { Typography, Button, Grid, Popover, Box } from "@mui/material";
 import PropTypes from "prop-types";
 import React from "react";
-import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { AddCircleRounded } from "@mui/icons-material";
+import EditIcon from "@mui/icons-material/Edit";
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -25,7 +24,7 @@ function Item(props) {
 }
 
 export default function DetailedCardView(props) {
-  const { open, setOpen, anchorEl } = props;
+  const { open, setOpen, anchorEl, connection } = props;
   const handleClose = () => {
     console.log("closing");
     setOpen(false);
@@ -65,7 +64,7 @@ export default function DetailedCardView(props) {
               justifyContent="space-evenly"
               alignItems="center"
             >
-              <AddPhotoAlternateIcon
+              {/* <AddPhotoAlternateIcon
                 align="center"
                 justify="center"
                 sx={{
@@ -75,11 +74,27 @@ export default function DetailedCardView(props) {
                   maxHeight: { xs: 60, md: 80 },
                   maxWidth: { xs: 60, md: 80 },
                 }}
-              ></AddPhotoAlternateIcon>
+              ></AddPhotoAlternateIcon> */}
+              <Box
+                component="img"
+                sx={{
+                  textTransform: "none",
+                  position: "relative",
+                  bgColor: "secondary",
+                  borderRadius: 1,
+                  color: "black",
+                  height: 120,
+                  width: 120,
+                  maxHeight: { xs: 100, md: 120 },
+                  maxWidth: { xs: 100, md: 120 },
+                }}
+                alt="Can't load image"
+                src={connection.profilePicture}
+              />
               <Typography sx={{ fontWeight: "bold" }}>
-                Connection Name
+                {connection.fullName}
               </Typography>
-              <Typography>Connection Position</Typography>
+              <Typography>{connection.position}</Typography>
               <Typography>Placeholder Text</Typography>
             </Grid>
           </Item>
@@ -101,16 +116,14 @@ export default function DetailedCardView(props) {
               >
                 <Typography>Description:</Typography>
                 <Button sx={{ color: "white", mr: -2 }}>
-                  <AddCircleRounded />
+                  <EditIcon />
                 </Button>
               </div>
-              <Typography display="block">
-                {"Insert description here."}
-              </Typography>
+              <Typography display="block">{connection.description}</Typography>
               <Box sx={{ height: 0.3 }} />
               <Typography>Last Contacted:</Typography>
               <Typography display="block">
-                {"Insert description here."}
+                {connection.lastContacted}
               </Typography>
             </Grid>
           </Item>
@@ -124,4 +137,5 @@ DetailedCardView.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
   anchorEl: PropTypes.any.isRequired,
+  connection: PropTypes.object.isRequired,
 };

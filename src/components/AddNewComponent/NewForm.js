@@ -114,7 +114,6 @@ export default function AddConnectionForm(props) {
           </div>
         </center>
       </DialogTitle>
-      w
       <form onSubmit={handleSubmit}>
         <Grid
           sx={{ px: 10 }}

@@ -66,7 +66,12 @@ export default function ConnectionCard(props) {
           </Button>
         </CardActions>
       </Card>
-      <DetailedCardView open={open} setOpen={setOpen} anchorEl={anchorEl} />
+      <DetailedCardView
+        open={open}
+        setOpen={setOpen}
+        anchorEl={anchorEl}
+        connection={connection}
+      />
     </>
   );
 }
