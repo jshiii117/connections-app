@@ -1,4 +1,5 @@
 import * as React from "react";
+import PropTypes from "prop-types";
 import {
   Box,
   Toolbar,
@@ -12,10 +13,21 @@ import {
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 const drawerWidth = 240;
 
-export default function WorkspaceDrawer() {
+export default function WorkspaceDrawer(props) {
+  const [propConnectionGroups] = props;
+  const [expand, setExpand] = React.useState(false);
+  const handleExpand = () => {
+    setExpand(!expand);
+  };
+
+  const connectionGroups = propConnectionGroups;
+  console.log(typeof connectionGroups);
+
   return (
     <Drawer
       variant="permanent"
@@ -39,15 +51,16 @@ export default function WorkspaceDrawer() {
           overflow: "auto" /* Side Drawer Settings */,
         }}
       >
-        <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemText primary={text} />
+        {/* <List>
+          {connectionGroups.map((connection) => (
+            <ListItem key={connection.groupName} disablePadding>
+              <ListItemButton onClick={handleExpand}>
+                {expand ? <ExpandLess /> : <ExpandMore />}
+                <ListItemText primary={connection.groupName} />
               </ListItemButton>
             </ListItem>
           ))}
-        </List>
+        </List> */}
         <Divider />
         <List>
           {["All mail", "Trash", "Spam"].map((text, index) => (
@@ -70,3 +83,7 @@ export default function WorkspaceDrawer() {
     </Drawer>
   );
 }
+
+WorkspaceDrawer.propTypes = {
+  connectionGroups: PropTypes.array.isRequired,
+};

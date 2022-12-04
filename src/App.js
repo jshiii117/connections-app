@@ -29,6 +29,19 @@ const connectionGroups = [
       },
     ],
   },
+  {
+    groupName: "Software Engineering",
+    groupItems: [
+      {
+        profilePicture: "https://source.unsplash.com/random",
+        fullName: "Barack Obama",
+        position: "President",
+        lastContacted: "Today",
+        contactMethod: "LinkedIn",
+        description: "Ice cream is cool.",
+      },
+    ],
+  },
 ];
 
 const theme = createTheme({
@@ -67,7 +80,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <WorkspaceAppBar />
-      <WorkspaceDrawer />
+      {/* <WorkspaceDrawer connectionGroups={connectionGroups} /> */}
       <main>
         <Box
           sx={{
@@ -78,7 +91,7 @@ export default function App() {
           }} /* Margin left*/
         >
           {connectionGroups.map((connectionGroup) => (
-            <>
+            <React.Fragment key={connectionGroup.groupName}>
               <Typography
                 variant="h4"
                 sx={{ fontWeight: "bold", color: "white" }}
@@ -86,7 +99,7 @@ export default function App() {
                 {connectionGroup.groupName}
               </Typography>
               <Box sx={{ height: 15 }} />
-              <Grid container spacing={4}>
+              <Grid key={connectionGroup.groupName} container spacing={4}>
                 {connectionGroup.groupItems.map((connection) => (
                   <Grid
                     item
@@ -102,7 +115,7 @@ export default function App() {
                 ))}
               </Grid>
               <Box sx={{ height: 50 }} />
-            </>
+            </React.Fragment>
           ))}
           <FloatingNewButton />
         </Box>

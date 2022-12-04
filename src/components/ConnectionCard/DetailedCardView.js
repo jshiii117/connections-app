@@ -136,6 +136,6 @@ export default function DetailedCardView(props) {
 DetailedCardView.propTypes = {
   open: PropTypes.bool.isRequired,
   setOpen: PropTypes.func.isRequired,
-  anchorEl: PropTypes.any.isRequired,
+  anchorEl: PropTypes.any,
   connection: PropTypes.object.isRequired,
 };
