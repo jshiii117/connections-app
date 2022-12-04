@@ -42,6 +42,19 @@ const connectionGroups = [
       },
     ],
   },
+  {
+    groupName: "Product Management",
+    groupItems: [
+      {
+        profilePicture: "https://source.unsplash.com/random",
+        fullName: "Barack Obama",
+        position: "President",
+        lastContacted: "Today",
+        contactMethod: "LinkedIn",
+        description: "Ice cream is cool.",
+      },
+    ],
+  },
 ];
 
 const theme = createTheme({
@@ -80,7 +93,7 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <WorkspaceAppBar />
-      {/* <WorkspaceDrawer connectionGroups={connectionGroups} /> */}
+      <WorkspaceDrawer connectionGroups={connectionGroups} />
       <main>
         <Box
           sx={{

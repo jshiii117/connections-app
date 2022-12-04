@@ -10,23 +10,39 @@ import {
   ListItemText,
   Divider,
   ListItemIcon,
+  Collapse,
 } from "@mui/material";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+import Person4Icon from "@mui/icons-material/Person4";
 
 const drawerWidth = 240;
 
-export default function WorkspaceDrawer(props) {
-  const [propConnectionGroups] = props;
-  const [expand, setExpand] = React.useState(false);
-  const handleExpand = () => {
-    setExpand(!expand);
+export default function WorkspaceDrawer({ connectionGroups }) {
+  const [expand, setExpand] = React.useState([0]);
+
+  const handleExpand = (value) => {
+    const currentIndex = expand.indexOf(value);
+    const newExpand = [...expand];
+
+    if (currentIndex === -1) {
+      newExpand.push(value);
+    } else {
+      newExpand.splice(currentIndex, 1);
+    }
+
+    setExpand(newExpand);
+    console.log(newExpand);
   };
 
-  const connectionGroups = propConnectionGroups;
-  console.log(typeof connectionGroups);
+  function checkExpanded(value) {
+    if (expand.indexOf(value) === -1) {
+      return true;
+    }
+    return false;
+  }
 
   return (
     <Drawer
@@ -48,35 +64,42 @@ export default function WorkspaceDrawer(props) {
           height: window.innerHeight,
           bgcolor: "primary.main",
           color: "primary.text",
+          maxWidth: 360,
           overflow: "auto" /* Side Drawer Settings */,
         }}
       >
-        {/* <List>
-          {connectionGroups.map((connection) => (
-            <ListItem key={connection.groupName} disablePadding>
-              <ListItemButton onClick={handleExpand}>
-                {expand ? <ExpandLess /> : <ExpandMore />}
-                <ListItemText primary={connection.groupName} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List> */}
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem
-              bgcolor="#53b4b4"
-              color="#53b4b4"
-              key={text}
-              disablePadding
-            >
-              <ListItemButton>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
+        <List component="nav" aria-labelledby="nested-list-subheader">
+          {connectionGroups.map((connectionGroup) => (
+            <>
+              <ListItem key={connectionGroup.groupName} disablePadding>
+                <ListItemButton
+                  onClick={() => handleExpand(connectionGroup.groupName)}
+                >
+                  {checkExpanded(connectionGroup.groupName) ? (
+                    <ExpandLess />
+                  ) : (
+                    <ExpandMore />
+                  )}
+                  <ListItemText primary={connectionGroup.groupName} />
+                </ListItemButton>
+              </ListItem>
+              {connectionGroup.groupItems.map((connection) => (
+                <Collapse
+                  in={checkExpanded(connectionGroup.groupName)}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <Person4Icon />
+                      </ListItemIcon>
+                      <ListItemText primary={connection.fullName} />
+                    </ListItemButton>
+                  </List>
+                </Collapse>
+              ))}
+            </>
           ))}
         </List>
       </Box>
