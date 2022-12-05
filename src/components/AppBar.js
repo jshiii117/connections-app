@@ -20,11 +20,11 @@ export default function WorkspaceAppBar() {
         <IconButton>
           <ArrowBackIosNewRoundedIcon sx={{ mr: 2, color: "white" }} />
         </IconButton>
-        <Box sx={{ flexGrow: 0.5 }} />
+        <Box sx={{ flexGrow: 0.55 }} />
         <Typography variant="h6" color="inherit" noWrap>
           Workspace Title
         </Typography>
-        <Box sx={{ flexGrow: 0.5 }} />
+        <Box sx={{ flexGrow: 0.45 }} />
         <Box sx={{ display: { xs: "none", md: "inline" } }}>
           <Typography variant="h10" color="inherit" noWrap>
             User Name

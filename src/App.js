@@ -6,6 +6,7 @@ import WorkspaceAppBar from "./components/AppBar";
 import FloatingNewButton from "./components/AddNewComponent/NewFormButton";
 import ConnectionCard from "./components/ConnectionCard/ConnectionCard";
 import WorkspaceDrawer from "./components/WorkspaceDrawer/WorkspaceDrawer";
+import ConnectionSearchBar from "./components/ConnectionSearchBar";
 
 const connectionGroups = [
   {
@@ -100,9 +101,10 @@ export default function App() {
             bgcolor: "background.main",
             width: 1,
             pl: 35,
-            my: 10,
+            mt: 12,
           }} /* Margin left*/
         >
+          <ConnectionSearchBar />
           {connectionGroups.map((connectionGroup) => (
             <React.Fragment key={connectionGroup.groupName}>
               <Typography

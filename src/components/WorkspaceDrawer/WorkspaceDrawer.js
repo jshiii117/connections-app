@@ -8,12 +8,9 @@ import {
   ListItem,
   ListItemButton,
   ListItemText,
-  Divider,
   ListItemIcon,
   Collapse,
 } from "@mui/material";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Person4Icon from "@mui/icons-material/Person4";
