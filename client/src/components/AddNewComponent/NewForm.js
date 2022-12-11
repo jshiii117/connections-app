@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
+import { addConnection } from "../../api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
@@ -84,8 +85,11 @@ export default function AddConnectionForm(props) {
   };
 
   const handleSubmit = (e) => {
+    addConnection(formValues);
     e.preventDefault();
-    console.log(formValues);
+    console.log(
+      `Add Connection: Form submit success with values: ${formValues} `
+    );
     onClose();
   };
 

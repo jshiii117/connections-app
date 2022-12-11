@@ -20,7 +20,6 @@ app.post("/create", (req, res) => {
   const lastContacted = req.body.lastContacted;
   const contactMethod = req.body.contactMethod;
   const description = req.body.description;
-
   db.query(
     "INSERT INTO connections (profilePicture, fullName, position, lastContacted, contactMethod, description) VALUES (?,?,?,?,?,?)",
     [
@@ -33,7 +32,7 @@ app.post("/create", (req, res) => {
     ],
     (err, result) => {
       if (err) {
-        console.log(err);
+        console.log(`Add Connection: Failure with MySQL: ${err}`);
       } else {
         res.send("Values Inserted");
       }
@@ -78,6 +77,6 @@ app.get("/connections", (req, res) => {
 //   });
 // });
 
-app.listen(3001, () => {
-  console.log("Yey, your server is running on port 3001");
+app.listen(5000, () => {
+  console.log("Yey, your server is running on port 5000");
 });
