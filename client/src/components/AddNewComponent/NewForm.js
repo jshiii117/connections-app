@@ -20,7 +20,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 
 const defaultFormValues = {
   profilePicture: "https://source.unsplash.com/random",
-  name: "A Friendly Connection",
+  fullName: "A Friendly Connection",
   position: "Software Engineer",
   lastContacted: "Today",
   contactMethod: "LinkedIn",
@@ -88,6 +88,7 @@ export default function AddConnectionForm(props) {
     addConnection(formValues);
     e.preventDefault();
     onClose();
+    console.log("Add Connection: Form upload success");
   };
 
   return (
@@ -211,10 +212,10 @@ export default function AddConnectionForm(props) {
           <Grid item>
             <TextField
               fullWidth
-              name="name"
+              name="fullName"
               variant="standard"
               label="Full Name"
-              placeholder={defaultFormValues.name}
+              placeholder={defaultFormValues.fullName}
               margin={"normal"}
               onChange={handleInputChange}
             />
