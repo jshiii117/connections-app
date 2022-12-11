@@ -3,11 +3,8 @@ import { Box, Fab, Typography } from "@mui/material";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import AddConnectionForm from "./NewForm";
 
-const emails = ["hello@gmail.com", "nima@gmail.com", "jame@gmail.com"];
-
 export default function NewConnectionButton() {
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState(emails[1]);
   const [clickedFab, setClickedFab] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -18,7 +15,6 @@ export default function NewConnectionButton() {
   const handleClose = (value) => {
     setOpen(false);
     setClickedFab(false);
-    setSelectedValue(value);
   };
 
   return (
@@ -42,11 +38,7 @@ export default function NewConnectionButton() {
         <Typography sx={{ fontWeight: "bold" }} variant="button">
           New
         </Typography>
-        <AddConnectionForm
-          onClose={handleClose}
-          selectedValue={selectedValue}
-          open={open}
-        />
+        <AddConnectionForm onClose={handleClose} open={open} />
       </Fab>
     </Box>
   );

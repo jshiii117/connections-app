@@ -28,7 +28,7 @@ const defaultFormValues = {
 };
 
 export default function AddConnectionForm(props) {
-  const { onClose, selectedValue, open } = props;
+  const { onClose, open } = props;
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [selectedFile, setSelectedFile] = useState(
     "https://source.unsplash.com/random"
@@ -81,7 +81,7 @@ export default function AddConnectionForm(props) {
   };
 
   const handleClose = () => {
-    onClose(selectedValue);
+    onClose();
   };
 
   const handleSubmit = (e) => {
