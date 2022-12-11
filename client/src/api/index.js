@@ -3,8 +3,6 @@ import axios from "axios";
 const baseUrl = "https://localhost:5000";
 
 export const addConnection = (formValues) => {
-  console.log(`${formValues} being sent to axios request`);
-  console.log(`${formValues.fullName}`);
   axios
     .post(`${baseUrl}/create`, {
       profilePicture: formValues.profilePicture,

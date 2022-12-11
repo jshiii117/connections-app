@@ -87,9 +87,6 @@ export default function AddConnectionForm(props) {
   const handleSubmit = (e) => {
     addConnection(formValues);
     e.preventDefault();
-    console.log(
-      `Add Connection: Form submit success with values: ${formValues} `
-    );
     onClose();
   };
 
@@ -281,5 +278,4 @@ export default function AddConnectionForm(props) {
 AddConnectionForm.propTypes = {
   onClose: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
-  selectedValue: PropTypes.string.isRequired,
 };
