@@ -14,12 +14,13 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Person4Icon from "@mui/icons-material/Person4";
+import { getConnectionGroup } from "../../api";
 
 const drawerWidth = 240;
 
 export default function WorkspaceDrawer({ connectionGroups }) {
   const [expand, setExpand] = React.useState([0]);
-
+  var data = {};
   const handleExpand = (value) => {
     const currentIndex = expand.indexOf(value);
     const newExpand = [...expand];
@@ -40,6 +41,11 @@ export default function WorkspaceDrawer({ connectionGroups }) {
     }
     return false;
   }
+
+  const testGetData = async (connectionGroupId) => {
+    console.log(data);
+    data = await getConnectionGroup(connectionGroupId);
+  };
 
   return (
     <Drawer
@@ -66,6 +72,9 @@ export default function WorkspaceDrawer({ connectionGroups }) {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
+          <ListItemButton onClick={() => testGetData(1)}>
+            Press to get connection
+          </ListItemButton>
           {connectionGroups.map((connectionGroup) => (
             <>
               <ListItem key={connectionGroup.groupName} disablePadding>

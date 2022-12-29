@@ -22,3 +22,15 @@ export const getConnections = () => {
     console.log("Get Connections: Axios call success");
   });
 };
+
+export const getConnectionGroup = async (connectionGroupId) => {
+  await axios
+    .get(`${baseUrl}/connectionGroup/${connectionGroupId}`)
+    .then((response) => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(`Get Connection Error ${error}`);
+    });
+};
