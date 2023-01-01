@@ -17,24 +17,27 @@ export const addConnection = (formValues) => {
     });
 };
 
-export const getConnections = async (idConnections) => {
-  console.log(idConnections)
+export const getConnectionGroup = async (idConnectionGroups) => {
+  const params = { idConnectionGroups: idConnectionGroups }
   try {
-    const response = await axios.get(`${baseUrl}/connections`, { params: { idConnections: idConnections } })
-    console.log(response.data);
+    const response = await axios.get(`${baseUrl}/connectionGroups`, { params: params });
+    // console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.log(`getConnectionGroup Axios Error ${error}`);
+  }
+};
+
+export const getConnections = async (idConnections, idConnectionGroups) => {
+  const params = { idConnections: idConnections, idConnectionGroups: idConnectionGroups }
+  try {
+    const response = await axios.get(`${baseUrl}/connections`, { params: params })
+    // console.log(response.data);
     return response.data;
   }
   catch (error) {
-    console.log(`Get Connection Error ${error}`);
+    console.log(`getConnections Axios Error ${error}`);
   }
 }
 
-export const getConnectionGroup = async (idConnectionGroups) => {
-  try {
-    const response = await axios.get(`${baseUrl}/connectionGroups/${idConnectionGroups}`);
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.log(`Get Connection Error ${error}`);
-  }
-};
+

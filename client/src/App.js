@@ -7,56 +7,9 @@ import FloatingNewButton from "./components/AddNewComponent/NewFormButton";
 import ConnectionCard from "./components/ConnectionCard/ConnectionCard";
 import WorkspaceDrawer from "./components/WorkspaceDrawer/WorkspaceDrawer";
 import ConnectionSearchBar from "./components/ConnectionSearchBar";
+import { useState, useEffect } from 'react'
+import { getConnectionGroup, getConnections } from "./api";
 
-const connectionGroups = [
-  {
-    groupName: "Consulting",
-    groupItems: [
-      {
-        profilePicture: "https://source.unsplash.com/random",
-        fullName: "Bob Marley",
-        position: "Software Engineer",
-        lastContacted: "Today",
-        contactMethod: "LinkedIn",
-        description: "This person is super cool.",
-      },
-      {
-        profilePicture: "https://source.unsplash.com/random",
-        fullName: "Elon Musk",
-        position: "CEO",
-        lastContacted: "Today",
-        contactMethod: "LinkedIn",
-        description: "This person is super cool.",
-      },
-    ],
-  },
-  {
-    groupName: "Software Engineering",
-    groupItems: [
-      {
-        profilePicture: "https://source.unsplash.com/random",
-        fullName: "Barack Obama",
-        position: "President",
-        lastContacted: "Today",
-        contactMethod: "LinkedIn",
-        description: "Ice cream is cool.",
-      },
-    ],
-  },
-  {
-    groupName: "Product Management",
-    groupItems: [
-      {
-        profilePicture: "https://source.unsplash.com/random",
-        fullName: "Barack Obama",
-        position: "President",
-        lastContacted: "Today",
-        contactMethod: "LinkedIn",
-        description: "Ice cream is cool.",
-      },
-    ],
-  },
-];
 
 const theme = createTheme({
   palette: {
@@ -90,6 +43,30 @@ function Copyright() {
 }
 
 export default function App() {
+  const [connectionGroups, setConnectionGroups] = useState([])
+  useEffect(() => {
+    console.log('running useEffect')
+    populateConnectionGroups(-1)
+  }, []);
+
+  const populateConnectionGroups = async (idConnectionGroups) => {
+    const response = await getConnectionGroup(idConnectionGroups)
+    for (const connectionGroup of response) {
+      connectionGroup['groupItems'] = await getConnections(-1, connectionGroup['idconnectionGroups']);
+    }
+    setConnectionGroups(response);
+  }
+
+  // const populateConnections = async (idConnections, idConnectionGroups) => {
+  //   await getConnections(idConnections, idConnectionGroups).then(response => {
+  //     const changedGroupId = response[0].idconnectionGroups - 1;
+  //     var tempObject = connectionGroups
+  //     tempObject[changedGroupId]['groupItems'] = response
+  //     // console.log(tempObject)
+  //     setConnectionGroups(tempObject)
+  //   })
+  // }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />

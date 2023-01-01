@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mysql = require("mysql");
 const cors = require("cors");
+const e = require("express");
 
 app.use(cors());
 app.use(express.json());
@@ -42,11 +43,21 @@ app.post("/create", (req, res) => {
 
 app.get("/connections", (req, res) => {
   const idConnections = req.query.idConnections;
-  var queryStatement = "SELECT * FROM connections where idconnections = ?"
-  if (idConnections == -1) {
-    queryStatement = "SELECT * FROM connections"
+  const idConnectionGroups = req.query.idConnectionGroups
+
+  var queryStatement = "SELECT * FROM connections"
+  var queryParams = []
+
+  if (idConnections != -1) {
+    queryStatement += " WHERE idconnections = ?"
+    queryParams.push(idConnections)
   }
-  db.query(queryStatement, [idConnections], (err, result) => {
+  if (idConnectionGroups != -1) {
+    idConnections != -1 ? queryStatement += " AND idconnectionGroups = ?" : queryStatement += " WHERE idconnectionGroups = ?"
+    queryParams.push(idConnectionGroups)
+  }
+
+  db.query(queryStatement, queryParams, (err, result) => {
     if (err) {
       console.log(err);
     } else {
@@ -55,8 +66,17 @@ app.get("/connections", (req, res) => {
   });
 });
 
-app.get("/connectionGroups/:idconnectionGroups", (req, res) => {
-  db.query("SELECT * FROM connections where idconnectionGroups = ?", [req.params.idconnectionGroups], (err, result) => {
+app.get("/connectionGroups", (req, res) => {
+  const idConnectionGroups = req.query.idConnectionGroups
+
+  var queryStatement = "SELECT * FROM connectiongroups"
+  var queryParams = []
+
+  if (idConnectionGroups != -1) {
+    queryStatement += " WHERE idconnectionGroups = ?"
+    queryParams.push(idConnectionGroups)
+  }
+  db.query(queryStatement, queryParams, (err, result) => {
     if (err) {
       console.log(err);
     } else {

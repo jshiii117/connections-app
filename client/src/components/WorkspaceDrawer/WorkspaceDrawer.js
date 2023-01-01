@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -14,13 +14,11 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Person4Icon from "@mui/icons-material/Person4";
-import { getConnectionGroup, getConnections } from "../../api";
 
 const drawerWidth = 240;
 
 export default function WorkspaceDrawer({ connectionGroups }) {
-  const [expand, setExpand] = React.useState([0]);
-  var testConnectionGroups = {}
+  const [expand, setExpand] = useState([0]);
   const handleExpand = (value) => {
     const currentIndex = expand.indexOf(value);
     const newExpand = [...expand];
@@ -34,30 +32,12 @@ export default function WorkspaceDrawer({ connectionGroups }) {
     setExpand(newExpand);
     console.log(newExpand);
   };
-
   function checkExpanded(value) {
+    // console.log(expand)
     if (expand.indexOf(value) === -1) {
-      return true;
+      return false;
     }
-    return false;
-  }
-
-  // const populateConnectionGroups = async () => {
-  //   await getConnectionGroups
-  // }
-
-  // const populateConnections = async (idConnectionGroups) => {
-  //   await getConnectionGroup(idConnectionGroups).then(response => {
-  //     testConnectionGroups = response
-  //     console.log(testConnectionGroups)
-  //   });
-  // }
-
-  const populateConnections = async (idConnections) => {
-    await getConnections(idConnections).then(response => {
-      testConnectionGroups = response
-      console.log(testConnectionGroups)
-    })
+    return true;
   }
 
   return (
@@ -85,14 +65,14 @@ export default function WorkspaceDrawer({ connectionGroups }) {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
-          <ListItemButton onClick={() => populateConnections(-1)}>
+          <ListItemButton onClick={() => console.log(connectionGroups)}>
             Press to get connection
           </ListItemButton>
           {connectionGroups.map((connectionGroup) => (
             <div key={connectionGroup.groupName}>
               <ListItem disablePadding>
                 <ListItemButton
-                  onClick={() => handleExpand(connectionGroup.groupName)}
+                  onClick={() => { handleExpand(connectionGroup.groupName) }}
                 >
                   {checkExpanded(connectionGroup.groupName) ? (
                     <ExpandLess />
