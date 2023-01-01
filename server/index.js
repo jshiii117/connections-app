@@ -41,7 +41,12 @@ app.post("/create", (req, res) => {
 });
 
 app.get("/connections", (req, res) => {
-  db.query("SELECT * FROM connections", (err, result) => {
+  const idConnections = req.query.idConnections;
+  var queryStatement = "SELECT * FROM connections where idconnections = ?"
+  if (idConnections == -1) {
+    queryStatement = "SELECT * FROM connections"
+  }
+  db.query(queryStatement, [idConnections], (err, result) => {
     if (err) {
       console.log(err);
     } else {

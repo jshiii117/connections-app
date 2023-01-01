@@ -14,7 +14,7 @@ import {
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import Person4Icon from "@mui/icons-material/Person4";
-import { getConnectionGroup } from "../../api";
+import { getConnectionGroup, getConnections } from "../../api";
 
 const drawerWidth = 240;
 
@@ -42,11 +42,22 @@ export default function WorkspaceDrawer({ connectionGroups }) {
     return false;
   }
 
-  const testGetData = async (idConnectionGroups) => {
-    await getConnectionGroup(idConnectionGroups).then(response => {
+  // const populateConnectionGroups = async () => {
+  //   await getConnectionGroups
+  // }
+
+  // const populateConnections = async (idConnectionGroups) => {
+  //   await getConnectionGroup(idConnectionGroups).then(response => {
+  //     testConnectionGroups = response
+  //     console.log(testConnectionGroups)
+  //   });
+  // }
+
+  const populateConnections = async (idConnections) => {
+    await getConnections(idConnections).then(response => {
       testConnectionGroups = response
       console.log(testConnectionGroups)
-    });
+    })
   }
 
   return (
@@ -74,12 +85,12 @@ export default function WorkspaceDrawer({ connectionGroups }) {
         }}
       >
         <List component="nav" aria-labelledby="nested-list-subheader">
-          <ListItemButton onClick={() => testGetData(1)}>
+          <ListItemButton onClick={() => populateConnections(-1)}>
             Press to get connection
           </ListItemButton>
           {connectionGroups.map((connectionGroup) => (
-            <>
-              <ListItem key={connectionGroup.groupName} disablePadding>
+            <div key={connectionGroup.groupName}>
+              <ListItem disablePadding>
                 <ListItemButton
                   onClick={() => handleExpand(connectionGroup.groupName)}
                 >
@@ -93,6 +104,7 @@ export default function WorkspaceDrawer({ connectionGroups }) {
               </ListItem>
               {connectionGroup.groupItems.map((connection) => (
                 <Collapse
+                  key={connection.fullName}
                   in={checkExpanded(connectionGroup.groupName)}
                   timeout="auto"
                   unmountOnExit
@@ -107,7 +119,7 @@ export default function WorkspaceDrawer({ connectionGroups }) {
                   </List>
                 </Collapse>
               ))}
-            </>
+            </div>
           ))}
         </List>
       </Box>

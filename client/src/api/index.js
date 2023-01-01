@@ -17,11 +17,17 @@ export const addConnection = (formValues) => {
     });
 };
 
-export const getConnections = () => {
-  axios.get(`${baseUrl}/connections`).then(() => {
-    console.log("Get Connections: Axios call success");
-  });
-};
+export const getConnections = async (idConnections) => {
+  console.log(idConnections)
+  try {
+    const response = await axios.get(`${baseUrl}/connections`, { params: { idConnections: idConnections } })
+    console.log(response.data);
+    return response.data;
+  }
+  catch (error) {
+    console.log(`Get Connection Error ${error}`);
+  }
+}
 
 export const getConnectionGroup = async (idConnectionGroups) => {
   try {
