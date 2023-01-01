@@ -20,7 +20,7 @@ const drawerWidth = 240;
 
 export default function WorkspaceDrawer({ connectionGroups }) {
   const [expand, setExpand] = React.useState([0]);
-  var data = {};
+  var testConnectionGroups = {}
   const handleExpand = (value) => {
     const currentIndex = expand.indexOf(value);
     const newExpand = [...expand];
@@ -42,10 +42,12 @@ export default function WorkspaceDrawer({ connectionGroups }) {
     return false;
   }
 
-  const testGetData = async (connectionGroupId) => {
-    console.log(data);
-    data = await getConnectionGroup(connectionGroupId);
-  };
+  const testGetData = async (idConnectionGroups) => {
+    await getConnectionGroup(idConnectionGroups).then(response => {
+      testConnectionGroups = response
+      console.log(testConnectionGroups)
+    });
+  }
 
   return (
     <Drawer

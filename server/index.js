@@ -50,6 +50,16 @@ app.get("/connections", (req, res) => {
   });
 });
 
+app.get("/connectionGroups/:idconnectionGroups", (req, res) => {
+  db.query("SELECT * FROM connections where idconnectionGroups = ?", [req.params.idconnectionGroups], (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
 // app.put("/update", (req, res) => {
 //   const id = req.body.id;
 //   const wage = req.body.wage;
