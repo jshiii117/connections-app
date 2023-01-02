@@ -3,7 +3,8 @@ import { Box, Fab, Typography } from "@mui/material";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import AddConnectionForm from "./NewForm";
 
-export default function NewConnectionButton() {
+export default function NewConnectionButton(props) {
+  const { updateConnectionGroup } = props;
   const [open, setOpen] = React.useState(false);
   const [clickedFab, setClickedFab] = React.useState(false);
 
@@ -38,7 +39,7 @@ export default function NewConnectionButton() {
         <Typography sx={{ fontWeight: "bold" }} variant="button">
           New
         </Typography>
-        <AddConnectionForm onClose={handleClose} open={open} />
+        <AddConnectionForm onClose={handleClose} open={open} updateConnectionGroup={updateConnectionGroup} />
       </Fab>
     </Box>
   );

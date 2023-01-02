@@ -1,7 +1,8 @@
 import { Typography, Button, Grid, Popover, Box } from "@mui/material";
 import PropTypes from "prop-types";
-import React from "react";
+import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
+import EditConnectionForm from "./EditForm";
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -24,10 +25,15 @@ function Item(props) {
 }
 
 export default function DetailedCardView(props) {
-  const { open, setOpen, anchorEl, connection } = props;
+  const { open, setOpen, anchorEl, connection, updateConnectionGroup } = props;
   const handleClose = () => {
     console.log("closing");
     setOpen(false);
+  };
+
+  const [formOpen, setFormOpen] = useState(false);
+  const handleFormClose = (value) => {
+    setFormOpen(false);
   };
 
   return (
@@ -115,7 +121,7 @@ export default function DetailedCardView(props) {
                 }}
               >
                 <Typography>Description:</Typography>
-                <Button sx={{ color: "white", mr: -2 }}>
+                <Button sx={{ color: "white", mr: -2 }} onClick={() => setFormOpen(!formOpen)}>
                   <EditIcon />
                 </Button>
               </div>
@@ -125,11 +131,13 @@ export default function DetailedCardView(props) {
               <Typography display="block">
                 {connection.lastContacted}
               </Typography>
+              <EditConnectionForm onClose={handleFormClose} open={formOpen} existingConnection={connection} updateConnectionGroup={updateConnectionGroup} />
             </Grid>
           </Item>
         </Box>
       </div>
     </Popover>
+
   );
 }
 

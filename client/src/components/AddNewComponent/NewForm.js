@@ -9,10 +9,12 @@ import {
   Typography,
   Box,
   alpha,
+  Select,
+  MenuItem
 } from "@mui/material";
 import PropTypes from "prop-types";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { addConnection } from "../../api";
+import { postConnection } from "../../api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="left" ref={ref} {...props} />;
@@ -25,10 +27,11 @@ const defaultFormValues = {
   lastContacted: "Today",
   contactMethod: "LinkedIn",
   description: "A short but informative description",
+  idconnectionGroups: 0
 };
 
 export default function AddConnectionForm(props) {
-  const { onClose, open } = props;
+  const { onClose, open, updateConnectionGroup } = props;
   const [formValues, setFormValues] = useState(defaultFormValues);
   const [setSelectedFile] = useState(
     "https://source.unsplash.com/random"
@@ -49,9 +52,6 @@ export default function AddConnectionForm(props) {
     var url = reader.readAsDataURL(file);
 
     reader.onloadend = function (e) {
-      //   this.setState({
-      //     selectedFile: [reader.result]
-      //   });
       setSelectedFile(reader.result);
       setFormValues({
         ...formValues,
@@ -65,30 +65,17 @@ export default function AddConnectionForm(props) {
       });
       console.log(formValues); //Image will not have updated at this point
     };
-
-    // // this.setState({
-    // //   mainState: "uploaded",
-    // //   selectedFile: event.target.files[0],
-    // //   imageUploaded: 1
-    // // });
-    // setSelectedFile(event.target.files[0])
-    // console.log("ran handleUploadClick")
-    // console.log(event.target.files[0])
-    // setFormValues({
-    //     ...formValues,
-    //     profilePicture: url
-    // })
   };
 
   const handleClose = () => {
     onClose();
   };
 
-  const handleSubmit = (e) => {
-    addConnection(formValues);
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    await postConnection(formValues);
+    await updateConnectionGroup(-1)
     onClose();
-    console.log("Add Connection: Form upload success");
   };
 
   return (
@@ -265,6 +252,23 @@ export default function AddConnectionForm(props) {
               margin={"normal"}
               onChange={handleInputChange}
             />
+          </Grid>
+          <Grid item>
+            <Select
+              fullWidth
+              name="idconnectionGroups"
+              variant="filled"
+              label="Group"
+              onChange={handleInputChange}
+              value={formValues.idconnectionGroups}
+            >
+              <MenuItem value={0}>
+                Misc
+              </MenuItem>
+              <MenuItem value={1}>Ten</MenuItem>
+              <MenuItem value={2}>Twenty</MenuItem>
+              <MenuItem value={3}>Thirty</MenuItem>
+            </Select>
           </Grid>
           <Box sx={{ height: 60 }}></Box>
           <Button variant="contained" type="submit">

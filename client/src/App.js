@@ -1,13 +1,13 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Grid, Box, Typography, Link } from "@mui/material";
+import { Grid, Box, Typography, Link, Modal } from "@mui/material";
 import WorkspaceAppBar from "./components/AppBar";
 import FloatingNewButton from "./components/AddNewComponent/NewFormButton";
 import ConnectionCard from "./components/ConnectionCard/ConnectionCard";
 import WorkspaceDrawer from "./components/WorkspaceDrawer/WorkspaceDrawer";
 import ConnectionSearchBar from "./components/ConnectionSearchBar";
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { getConnectionGroup, getConnections } from "./api";
 
 
@@ -67,11 +67,22 @@ export default function App() {
   //   })
   // }
 
+  const connectionRefs = useRef({});
+  const [currentRef, setCurrentRef] = useState("")
+  const handleScrollToConnection = async (fullName) => {
+    connectionRefs.current[fullName].scrollIntoView({ behavior: 'smooth' });
+    connectionRefs.current[fullName].focus()
+    //Trigger handleReferenced in ConnectionCard.js
+    setCurrentRef(fullName)
+  }
+
+
   return (
     <ThemeProvider theme={theme}>
+
       <CssBaseline />
       <WorkspaceAppBar />
-      <WorkspaceDrawer connectionGroups={connectionGroups} />
+      <WorkspaceDrawer connectionGroups={connectionGroups} handleScrollToConnection={handleScrollToConnection} />
       <main>
         <Box
           sx={{
@@ -101,15 +112,16 @@ export default function App() {
                     md={3}
                     l={2}
                     xl={2}
+                    ref={(ref) => { connectionRefs.current[connection.fullName] = ref; }}
                   >
-                    <ConnectionCard connection={connection} />
+                    <ConnectionCard connection={connection} updateConnectionGroup={populateConnectionGroups} handleScrollToConnection={handleScrollToConnection} currentRef={currentRef} />
                   </Grid>
                 ))}
               </Grid>
               <Box sx={{ height: 50 }} />
             </React.Fragment>
           ))}
-          <FloatingNewButton />
+          <FloatingNewButton updateConnectionGroup={populateConnectionGroups} />
         </Box>
       </main>
       {/* Footer */}
@@ -129,5 +141,6 @@ export default function App() {
       </Box>
       {/* End footer */}
     </ThemeProvider>
+
   );
 }

@@ -8,7 +8,7 @@ import {
   CardActionArea,
 } from "@mui/material";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DetailedCardView from "./DetailedCardView";
 
 const cardDimensions = {
@@ -16,16 +16,32 @@ const cardDimensions = {
 };
 
 export default function ConnectionCard(props) {
-  const { connection } = props;
+  const { connection, updateConnectionGroup, handleScrollToConnection, currentRef } = props;
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const [selected, setSelected] = useState(false)
+
+  useEffect(() => {
+    if (currentRef == connection.fullName) {
+      handleReferenced();
+    }
+  }, [currentRef]);
+
+  const handleReferenced = () => {
+    setSelected(true)
+    setTimeout(() => {
+      setSelected(false)
+    }, 2000)
+  }
 
   const handleCardClick = (event) => {
     setOpen(true);
     setAnchorEl(event.currentTarget);
   };
 
-  const handleButtonClick = (event) => {
+
+  const handleReachoutButton = (event) => {
     console.log("Reach Out button clicked");
   };
 
@@ -36,7 +52,8 @@ export default function ConnectionCard(props) {
           height: cardDimensions.height,
           display: "flex",
           flexDirection: "column",
-          bgcolor: "secondary.main",
+          bgcolor: selected ? "red" : "secondary.main"
+          // bgcolor: "secondary.main",
         }}
       >
         <CardActionArea onClick={handleCardClick}>
@@ -61,7 +78,7 @@ export default function ConnectionCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" variant="outlined" onClick={handleButtonClick}>
+          <Button size="small" variant="outlined" onClick={handleReachoutButton}>
             <Typography color="primary.text">REACH OUT</Typography>
           </Button>
         </CardActions>
@@ -71,6 +88,7 @@ export default function ConnectionCard(props) {
         setOpen={setOpen}
         anchorEl={anchorEl}
         connection={connection}
+        updateConnectionGroup={updateConnectionGroup}
       />
     </>
   );

@@ -21,8 +21,9 @@ app.post("/create", (req, res) => {
   const lastContacted = req.body.lastContacted;
   const contactMethod = req.body.contactMethod;
   const description = req.body.description;
+  const idconnectionGroups = req.body.idconnectionGroups;
   db.query(
-    "INSERT INTO connections (profilePicture, fullName, position, lastContacted, contactMethod, description) VALUES (?,?,?,?,?,?)",
+    "INSERT INTO connections (profilePicture, fullName, position, lastContacted, contactMethod, description, idconnectionGroups) VALUES (?,?,?,?,?,?,?)",
     [
       profilePicture,
       fullName,
@@ -30,16 +31,50 @@ app.post("/create", (req, res) => {
       lastContacted,
       contactMethod,
       description,
+      idconnectionGroups
     ],
     (err, result) => {
       if (err) {
         console.log(`Add Connection: Failure with MySQL: ${err}`);
       } else {
-        res.send("Values Inserted");
+        // res.send("Values Inserted");
+        res.send(result)
       }
     }
   );
 });
+
+app.patch("/connections/:idconnections", (req, res) => {
+  const idconnections = req.params.idconnections;
+  const profilePicture = req.body.profilePicture;
+  const fullName = req.body.fullName;
+  const position = req.body.position;
+  const lastContacted = req.body.lastContacted;
+  const contactMethod = req.body.contactMethod;
+  const description = req.body.description;
+  const idconnectionGroups = req.body.idconnectionGroups;
+  db.query(
+    "UPDATE connections SET profilePicture = ?, fullName = ?, position = ?, lastContacted = ?, contactMethod = ?, description = ?, idconnectionGroups = ? WHERE idconnections = ?",
+    [
+      profilePicture,
+      fullName,
+      position,
+      lastContacted,
+      contactMethod,
+      description,
+      idconnectionGroups,
+      idconnections
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(`Update Connection: Failure with MySQL: ${err}`);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
 
 app.get("/connections", (req, res) => {
   const idConnections = req.query.idConnections;

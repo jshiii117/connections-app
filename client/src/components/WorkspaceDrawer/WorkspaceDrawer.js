@@ -17,7 +17,7 @@ import Person4Icon from "@mui/icons-material/Person4";
 
 const drawerWidth = 240;
 
-export default function WorkspaceDrawer({ connectionGroups }) {
+export default function WorkspaceDrawer({ connectionGroups, handleScrollToConnection }) {
   const [expand, setExpand] = useState([0]);
   const handleExpand = (value) => {
     const currentIndex = expand.indexOf(value);
@@ -90,7 +90,7 @@ export default function WorkspaceDrawer({ connectionGroups }) {
                   unmountOnExit
                 >
                   <List component="div" disablePadding>
-                    <ListItemButton sx={{ pl: 4 }}>
+                    <ListItemButton sx={{ pl: 4 }} onClick={() => { handleScrollToConnection(connection.fullName) }}>
                       <ListItemIcon>
                         <Person4Icon />
                       </ListItemIcon>
