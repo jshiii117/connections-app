@@ -1,7 +1,7 @@
 import * as React from "react";
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Grid, Box, Typography, Link, Modal } from "@mui/material";
+import { Grid, Box, Typography, Link } from "@mui/material";
 import WorkspaceAppBar from "./components/AppBar";
 import FloatingNewButton from "./components/AddNewComponent/NewFormButton";
 import ConnectionCard from "./components/ConnectionCard/ConnectionCard";
@@ -47,8 +47,8 @@ export default function App() {
   useEffect(() => {
     console.log('running useEffect')
     populateConnectionGroups(-1)
+    populateConnections(-1, -1)
   }, []);
-
   const populateConnectionGroups = async (idConnectionGroups) => {
     const response = await getConnectionGroup(idConnectionGroups)
     for (const connectionGroup of response) {
@@ -57,15 +57,11 @@ export default function App() {
     setConnectionGroups(response);
   }
 
-  // const populateConnections = async (idConnections, idConnectionGroups) => {
-  //   await getConnections(idConnections, idConnectionGroups).then(response => {
-  //     const changedGroupId = response[0].idconnectionGroups - 1;
-  //     var tempObject = connectionGroups
-  //     tempObject[changedGroupId]['groupItems'] = response
-  //     // console.log(tempObject)
-  //     setConnectionGroups(tempObject)
-  //   })
-  // }
+  const [allConnections, setAllConnections] = useState([])
+  const populateConnections = async (idConnections, idConnectionGroups) => {
+    const response = await getConnections(idConnections, idConnectionGroups);
+    setAllConnections(response)
+  }
 
   const connectionRefs = useRef({});
   const [currentRef, setCurrentRef] = useState("")
@@ -75,7 +71,6 @@ export default function App() {
     //Trigger handleReferenced in ConnectionCard.js
     setCurrentRef(fullName)
   }
-
 
   return (
     <ThemeProvider theme={theme}>
@@ -92,7 +87,7 @@ export default function App() {
             mt: 12,
           }} /* Margin left*/
         >
-          <ConnectionSearchBar />
+          <ConnectionSearchBar connectionGroups={connectionGroups} setConnectionGroups={setConnectionGroups} allConnections={allConnections} />
           {connectionGroups.map((connectionGroup) => (
             <React.Fragment key={connectionGroup.groupName}>
               <Typography
@@ -106,7 +101,7 @@ export default function App() {
                 {connectionGroup.groupItems.map((connection) => (
                   <Grid
                     item
-                    key={connection.fullName}
+                    key={connection.idconnections}
                     xs={12}
                     sm={6}
                     md={3}

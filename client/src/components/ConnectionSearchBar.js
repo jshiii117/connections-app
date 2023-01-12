@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import { InputBase, Box } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
@@ -41,7 +41,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function ConnectionSearchBar() {
+export default function ConnectionSearchBar({ connectionGroups, setConnectionGroups, allConnections }) {
+  useEffect(() => {
+    setTimeout(() => {
+    }, 3000)
+    console.log('running searchbar useEffect')
+    const perfectConnectionGroup = connectionGroups
+    console.log(perfectConnectionGroup)
+
+  }, []);
+  const [searchConnections, setSearchConnections] = useState("")
+  const handleSearch = (value) => {
+    var newConnectionGroups = [{ groupName: "Search Results", groupItems: [] }]
+
+    for (var i = 0; i < allConnections.length; i++) {
+      if (allConnections[i]['fullName'].includes(value)) {
+        newConnectionGroups[0]['groupItems'].push(allConnections[i])
+      }
+    }
+    setSearchConnections(value)
+    if (newConnectionGroups[0]['groupItems'].length === 0) {
+      setConnectionGroups(connectionGroups)
+    }
+    else {
+      setConnectionGroups(newConnectionGroups)
+    }
+  }
+
   return (
     <Box
       display="flex"
@@ -61,6 +87,7 @@ export default function ConnectionSearchBar() {
           fullWidth
           placeholder="Search for people, groups, expertise..."
           inputProps={{ "aria-label": "search" }}
+          onChange={(e) => handleSearch(e.target.value)}
         />
       </Search>
     </Box>

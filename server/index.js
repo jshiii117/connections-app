@@ -75,6 +75,24 @@ app.patch("/connections/:idconnections", (req, res) => {
   );
 });
 
+app.delete("/delete", (req, res) => {
+  const idconnections = req.params.idconnections;
+  db.query(
+    "DELETE FROM connections WHERE idconnections = ?",
+    [
+      idconnections
+    ],
+    (err, result) => {
+      if (err) {
+        console.log(`Delete Connection: Failure with MySQL: ${err}`);
+      } else {
+        console.log(result)
+        res.send(result);
+      }
+    }
+  );
+});
+
 
 app.get("/connections", (req, res) => {
   const idConnections = req.query.idConnections;

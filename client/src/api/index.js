@@ -40,6 +40,16 @@ export const patchConnection = async (formValues) => {
   }
 };
 
+export const deleteConnection = async (idConnections) => {
+  const params = { idConnections: idConnections }
+  try {
+    const response = await axios.delete(`${baseUrl}/delete`, { params: params })
+    console.log(response)
+    return response.status
+  } catch (error) {
+    console.log(`deleteConnection Axios Error ${error}`)
+  }
+}
 
 export const getConnectionGroup = async (idConnectionGroups) => {
   const params = { idConnectionGroups: idConnectionGroups }

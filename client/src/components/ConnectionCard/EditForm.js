@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import PropTypes from "prop-types";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
-import { patchConnection, postConnection } from "../../api";
+import { patchConnection } from "../../api";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="left" ref={ref} {...props} />;

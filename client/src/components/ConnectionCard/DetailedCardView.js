@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import EditIcon from "@mui/icons-material/Edit";
 import EditConnectionForm from "./EditForm";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { deleteConnection } from "../../api";
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -35,6 +37,14 @@ export default function DetailedCardView(props) {
   const handleFormClose = (value) => {
     setFormOpen(false);
   };
+
+  const handleDelete = async (idconnections) => {
+    console.log(idconnections)
+    const response = await deleteConnection(idconnections);
+    console.log(response)
+    setOpen(false)
+    // await updateConnectionGroup(-1)
+  }
 
   return (
     <Popover
@@ -121,9 +131,14 @@ export default function DetailedCardView(props) {
                 }}
               >
                 <Typography>Description:</Typography>
-                <Button sx={{ color: "white", mr: -2 }} onClick={() => setFormOpen(!formOpen)}>
-                  <EditIcon />
-                </Button>
+                <div style={{ justifyContent: "space-between" }}>
+                  <Button sx={{ color: "white", mr: -2 }} onClick={() => setFormOpen(!formOpen)}>
+                    <EditIcon />
+                  </Button>
+                  <Button sx={{ color: "red", mr: -2 }} onClick={() => handleDelete(connection.idconnections)}>
+                    <DeleteIcon />
+                  </Button>
+                </div>
               </div>
               <Typography display="block">{connection.description}</Typography>
               <Box sx={{ height: 0.3 }} />

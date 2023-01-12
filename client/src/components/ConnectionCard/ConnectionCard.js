@@ -16,16 +16,17 @@ const cardDimensions = {
 };
 
 export default function ConnectionCard(props) {
-  const { connection, updateConnectionGroup, handleScrollToConnection, currentRef } = props;
+  const { connection, updateConnectionGroup, currentRef } = props;
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [selected, setSelected] = useState(false)
 
   useEffect(() => {
-    if (currentRef == connection.fullName) {
+    if (currentRef === connection.fullName) {
       handleReferenced();
     }
+    //eslint-disable-next-line
   }, [currentRef]);
 
   const handleReferenced = () => {
