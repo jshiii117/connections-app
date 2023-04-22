@@ -2,10 +2,8 @@ import React from "react";
 import { Box, Typography, Button, styled } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import axios from "axios";
 import { postUser } from "../api/users";
-
-const baseUrl = "localhost:5000";
+import { useNavigate } from "react-router-dom";
 
 const provider = new GoogleAuthProvider();
 
@@ -19,7 +17,6 @@ const firebaseConfig = {
 };
 
 const firebase = initializeApp(firebaseConfig);
-const auth = getAuth();
 
 const SignInContainer = styled(Box)`
   display: flex;
@@ -42,6 +39,9 @@ const SignInCard = styled(Box)`
 `;
 
 function SignIn() {
+  const navigate = useNavigate();
+  const auth = getAuth();
+
   const handleClick = async () => {
     await auth.currentUser.getIdToken().then((result) => console.log(result));
   };
@@ -52,22 +52,26 @@ function SignIn() {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        console.log(result);
         if (user) {
           alert("Authentication with Google is successful");
-          if (result.additionalUserInfo.isNewUser) {
-            alert("This is a new user");
-            const { uid, displayName, email } = result.user;
-            const newUser = {
-              idUsers: uid,
-              displayName: displayName,
-              email: email,
-              authProvider: "google",
-            };
-            postUser(newUser);
-          }
+          // if (result.additionalUserInfo.isNewUser) {
+          //   alert("This is a new user");
+          //   const { uid, displayName, email } = result.user;
+          //   const newUser = {
+          //     idUsers: uid,
+          //     displayName: displayName,
+          //     email: email,
+          //     authProvider: "google",
+          //   };
+
+          //   postUser(newUser).then((_) => console.log("Added new user"));
+          // }
+          navigate("/workspace");
         }
       })
       .catch((error) => {
+        console.log(error);
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;

@@ -4,7 +4,6 @@ const mysql = require("mysql");
 const cors = require("cors");
 const fs = require("fs");
 
-// Load environment variables from the .env file
 require("dotenv").config({ path: __dirname + "/../.env" });
 
 app.use(cors());
