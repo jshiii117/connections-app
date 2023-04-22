@@ -41,32 +41,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function ConnectionSearchBar({ connectionGroups, setConnectionGroups, allConnections }) {
+export default function ConnectionSearchBar({
+  connectionGroups,
+  setConnectionGroups,
+  allConnections,
+}) {
   useEffect(() => {
-    setTimeout(() => {
-    }, 3000)
-    console.log('running searchbar useEffect')
-    const perfectConnectionGroup = connectionGroups
-    console.log(perfectConnectionGroup)
-
+    setTimeout(() => {}, 3000);
+    console.log("running searchbar useEffect");
+    const perfectConnectionGroup = connectionGroups;
+    console.log(perfectConnectionGroup);
+    // eslint-disable-next-line
   }, []);
-  const [searchConnections, setSearchConnections] = useState("")
+  // eslint-disable-next-line
+  const [searchConnections, setSearchConnections] = useState("");
   const handleSearch = (value) => {
-    var newConnectionGroups = [{ groupName: "Search Results", groupItems: [] }]
+    var newConnectionGroups = [{ groupName: "Search Results", groupItems: [] }];
 
     for (var i = 0; i < allConnections.length; i++) {
-      if (allConnections[i]['fullName'].includes(value)) {
-        newConnectionGroups[0]['groupItems'].push(allConnections[i])
+      if (allConnections[i]["fullName"].includes(value)) {
+        newConnectionGroups[0]["groupItems"].push(allConnections[i]);
       }
     }
-    setSearchConnections(value)
-    if (newConnectionGroups[0]['groupItems'].length === 0) {
-      setConnectionGroups(connectionGroups)
+    setSearchConnections(value);
+    if (newConnectionGroups[0]["groupItems"].length === 0) {
+      setConnectionGroups(connectionGroups);
+    } else {
+      setConnectionGroups(newConnectionGroups);
     }
-    else {
-      setConnectionGroups(newConnectionGroups)
-    }
-  }
+  };
 
   return (
     <Box

@@ -7,9 +7,8 @@ import FloatingNewButton from "./components/AddNewComponent/NewFormButton";
 import ConnectionCard from "./components/ConnectionCard/ConnectionCard";
 import WorkspaceDrawer from "./components/WorkspaceDrawer/WorkspaceDrawer";
 import ConnectionSearchBar from "./components/ConnectionSearchBar";
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from "react";
 import { getConnectionGroup, getConnections } from "./api";
-
 
 const theme = createTheme({
   palette: {
@@ -43,41 +42,49 @@ function Copyright() {
 }
 
 export default function App() {
-  const [connectionGroups, setConnectionGroups] = useState([])
+  const [connectionGroups, setConnectionGroups] = useState([]);
   useEffect(() => {
-    console.log('running useEffect')
-    populateConnectionGroups(-1)
-    populateConnections(-1, -1)
+    console.log("running useEffect");
+    populateConnectionGroups(-1);
+    populateConnections(-1, -1);
   }, []);
   const populateConnectionGroups = async (idConnectionGroups) => {
-    const response = await getConnectionGroup(idConnectionGroups)
+    const response = await getConnectionGroup(idConnectionGroups);
     for (const connectionGroup of response) {
-      connectionGroup['groupItems'] = await getConnections(-1, connectionGroup['idconnectionGroups']);
+      console.log(
+        `ConnectionGroup on line 55: ${connectionGroup["groupItems"]}`
+      );
+      connectionGroup["groupItems"] = await getConnections(
+        -1,
+        connectionGroup["idconnectionGroups"]
+      );
     }
     setConnectionGroups(response);
-  }
+  };
 
-  const [allConnections, setAllConnections] = useState([])
+  const [allConnections, setAllConnections] = useState([]);
   const populateConnections = async (idConnections, idConnectionGroups) => {
     const response = await getConnections(idConnections, idConnectionGroups);
-    setAllConnections(response)
-  }
+    setAllConnections(response);
+  };
 
   const connectionRefs = useRef({});
-  const [currentRef, setCurrentRef] = useState("")
+  const [currentRef, setCurrentRef] = useState("");
   const handleScrollToConnection = async (fullName) => {
-    connectionRefs.current[fullName].scrollIntoView({ behavior: 'smooth' });
-    connectionRefs.current[fullName].focus()
+    connectionRefs.current[fullName].scrollIntoView({ behavior: "smooth" });
+    connectionRefs.current[fullName].focus();
     //Trigger handleReferenced in ConnectionCard.js
-    setCurrentRef(fullName)
-  }
+    setCurrentRef(fullName);
+  };
 
   return (
     <ThemeProvider theme={theme}>
-
       <CssBaseline />
       <WorkspaceAppBar />
-      <WorkspaceDrawer connectionGroups={connectionGroups} handleScrollToConnection={handleScrollToConnection} />
+      <WorkspaceDrawer
+        connectionGroups={connectionGroups}
+        handleScrollToConnection={handleScrollToConnection}
+      />
       <main>
         <Box
           sx={{
@@ -87,7 +94,11 @@ export default function App() {
             mt: 12,
           }} /* Margin left*/
         >
-          <ConnectionSearchBar connectionGroups={connectionGroups} setConnectionGroups={setConnectionGroups} allConnections={allConnections} />
+          <ConnectionSearchBar
+            connectionGroups={connectionGroups}
+            setConnectionGroups={setConnectionGroups}
+            allConnections={allConnections}
+          />
           {connectionGroups.map((connectionGroup) => (
             <React.Fragment key={connectionGroup.groupName}>
               <Typography
@@ -107,9 +118,16 @@ export default function App() {
                     md={3}
                     l={2}
                     xl={2}
-                    ref={(ref) => { connectionRefs.current[connection.fullName] = ref; }}
+                    ref={(ref) => {
+                      connectionRefs.current[connection.fullName] = ref;
+                    }}
                   >
-                    <ConnectionCard connection={connection} updateConnectionGroup={populateConnectionGroups} handleScrollToConnection={handleScrollToConnection} currentRef={currentRef} />
+                    <ConnectionCard
+                      connection={connection}
+                      updateConnectionGroup={populateConnectionGroups}
+                      handleScrollToConnection={handleScrollToConnection}
+                      currentRef={currentRef}
+                    />
                   </Grid>
                 ))}
               </Grid>
@@ -136,6 +154,5 @@ export default function App() {
       </Box>
       {/* End footer */}
     </ThemeProvider>
-
   );
 }
